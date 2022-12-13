@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Stack Trace Viewer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css">
+    <link rel="stylesheet" href="tree.css" />
+</head>
+
+<body>
+    <form id="stack">
+        <label class="label" for="">
+            Root Path:
+            <input class="input" type="text" name="root_path" id="" value="/var/www/html">
+        </label>
+        <textarea class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10">
+  #0 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(109): require() 
+        </textarea>
+
+        <button class="button is-link" type="submit">Process</button>
+    </form>
+
+    <ul role="tree" aria-labelledby="tree_label">
+        <li id="first-element" role="treeitem" aria-expanded="true" aria-selected="false">
+             <!-- Folder Tree  -->
+        </li>
+    </ul>
+
+    <p><label> <input id="last_action" type="hidden" size="15" readonly=""></label></p>
+
+    <script>
+        document.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let data = Object.fromEntries(new FormData(event.target));
+
+            let rootPathRegex = new RegExp(data.root_path + "?", "g");
+
+            let stackArray = data.stacktrace
+                .split(/\r?\n/)
+                .map(el => el.trim())
+                .map(el => el.replace(rootPathRegex, ""));
+
+
+            let filePaths = stackArray.map(el => {
+                let path = el.split(" ").slice(1, -1)
+                return path[0]
+            });
+
+            //Remove last item
+            filePaths.pop();
+
+            const folders = filePaths.map(filePath => {
+                // Extract the folder names from each file path
+                let folders = filePath.split('/').slice(1, -1);
+                let file = filePath.split('/').slice(-1)[0];
+
+                return { folders, file }
+            });
+
+            const folderTree = {};
+
+            folders.forEach(folder => {
+                let parent = folderTree;
+                folder.folders.forEach(folderName => {
+                    if (!parent[folderName]) {
+                        parent[folderName] = {};
+                    }
+                    parent = parent[folderName];
+                });
+                parent[folder.file] = true
+            });
+
+
+            console.log(folderTree)
+
+            let listContainer = document.getElementById('first-element')
+            let list = createList(folderTree);
+
+            listContainer.innerHTML = ''
+            listContainer.appendChild(list)
+
+            initializeTree()
+
+        })
+
+
+
+        function createList(tree) {
+            // create the list element
+            var list = document.createElement('ul');
+            list.setAttribute('role', 'group')
+
+            let treeKeys = Object.keys(tree).sort();
+
+            // iterate over the array
+            for (const key of treeKeys) {
+
+                let item = tree[key]
+
+                // create the list item
+                var li = document.createElement('li');
+                li.setAttribute('role', 'treeitem')
+                li.setAttribute('aria-expanded', 'false')
+                li.setAttribute('aria-selected', 'false')
+
+                let text = document.createElement('span')
+                text.textContent = key
+                li.appendChild(text)
+
+                // check if the item is an array
+                if (typeof item === 'object') {
+
+                    // if it is, call the function recursively to create a nested list
+                    li.appendChild(createList(item));
+                } else {
+                    // otherwise, set the text content of the list item
+                    li.textContent = key;
+                    li.classList.add('file')
+                }
+
+                // add the list item to the list
+                list.appendChild(li);
+            }
+
+            // return the list
+            return list;
+        }
+
+    </script>
+    <script src="stackTraceParser.js"></script>
+    <script src="tree.js"> </script>
+    <script src="treeItem.js"></script>
+    <script src="treeItemClick.js"></script>
+</body>
+
+</html>

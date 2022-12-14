@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css">
     
-  <script type="module" crossorigin src="/php-stacktrace-viewer/assets/index-4316813b.js"></script>
+  <script type="module" crossorigin src="/php-stacktrace-viewer/assets/index-a49d008a.js"></script>
   <link rel="stylesheet" href="/php-stacktrace-viewer/assets/index-8834b133.css">
 </head>
 
@@ -17,11 +17,9 @@
 <form id="stack">
     <label class="label" for="">
         Root Path:
-        <input class="input" type="text" name="root_path" id="" value="/var/www/html">
+        <input class="input" type="text" name="root_path" id="" placeholder="/var/www/html">
     </label>
-    <textarea class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10">
-  #0 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(109): require() 
-        </textarea>
+    <textarea class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10"></textarea>
 
     <button class="button is-link" type="submit">Process</button>
 </form>

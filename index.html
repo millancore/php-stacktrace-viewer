@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Stack Trace Viewer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css">
+    
+  <script type="module" crossorigin src="/php-stacktrace-viewer/assets/index-4316813b.js"></script>
+  <link rel="stylesheet" href="/php-stacktrace-viewer/assets/index-8834b133.css">
+</head>
+
+<body>
+<form id="stack">
+    <label class="label" for="">
+        Root Path:
+        <input class="input" type="text" name="root_path" id="" value="/var/www/html">
+    </label>
+    <textarea class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10">
+  #0 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(109): require() 
+        </textarea>
+
+    <button class="button is-link" type="submit">Process</button>
+</form>
+
+
+<p><label> <input id="last_action" type="hidden" size="15" readonly=""></label></p>
+
+<div class="tabs">
+    <ul>
+        <li id="tree-tab">
+            <a>
+                <span class="icon is-small"><i class="fas fa-folder-tree" aria-hidden="true"></i></span>
+                <span>Folder Tree</span>
+            </a>
+        </li>
+        <li id="table-tab">
+            <a>
+                <span class="icon is-small"><i class="fas fa-table" aria-hidden="true"></i></span>
+                <span>Table</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="tree-container" class="toggle-content">
+<div id="folder-tree">
+    <ul id="tree" role="tree" aria-labelledby="tree_label">
+        <li id="first-element" role="treeitem" aria-expanded="true" aria-selected="false">
+            <!-- Folder Tree  -->
+        </li>
+    </ul>
+    <div id="stack-detail">
+        <div class="stack-info">
+            <span>Execution index: </span>
+            <h1 class="title" id="stack-index"></h1>
+        </div>
+        <div class="stack-info">
+            <span>Path:</span>
+            <p class="path" id="stack-path"></p>
+        </div>
+        <div class="stack-info">
+            <span>Line:</span>
+            <h2 class="subtitle" id="stack-line"></h2>
+        </div>
+        <div class="stack-info">
+            <span>Method:</span>
+            <h2 class="subtitle" id="stack-method"></h2>
+        </div>
+    </div>
+</div>
+</div>
+<div id="table" class="toggle-content">
+    <table id="stack-table"
+            class="table is-bordered is-striped is-narrow">
+        <thead>
+        <tr>
+            <th>Order</th>
+            <th>Path</th>
+            <th>Line</th>
+            <th>Method</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<div id="diagram">
+
+</div>
+</body>
+
+
+</html>

@@ -15,23 +15,27 @@
 <form id="stack">
     <label class="label" for="">
         Root Path:
-        <input class="input" type="text" name="root_path" id="" value="/var/www/html">
+        <input class="input" type="text" name="root_path" id="" placeholder="/var/www/html">
     </label>
-    <textarea class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10">
-  #0 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(109): require() 
-        </textarea>
+    <textarea id="textarea" class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10"></textarea>
 
-    <button class="button is-link" type="submit">Process</button>
+    <button id="process" class="button is-link" type="submit">Process</button>
+    <button class="button" type="button">Clear</button>
 </form>
 
 
 <p><label> <input id="last_action" type="hidden" size="15" readonly=""></label></p>
 
+<article id="error-view" class="message is-danger toggle-content">
+    <div id="log-error" class="message-body">
+    </div>
+</article>
+
 <div class="tabs">
     <ul>
         <li id="tree-tab">
             <a>
-                <span class="icon is-small"><i class="fas fa-folder-tree" aria-hidden="true"></i></span>
+                <span class="icon is-small"><i class="fas fa-folder" aria-hidden="true"></i></span>
                 <span>Folder Tree</span>
             </a>
         </li>
@@ -43,6 +47,9 @@
         </li>
     </ul>
 </div>
+
+
+
 <div id="tree-container" class="toggle-content">
 <div id="folder-tree">
     <ul id="tree" role="tree" aria-labelledby="tree_label">

@@ -1,5 +1,5 @@
 export default {
-    createList: function (tree) {
+    createList: function (tree, vendor = false) {
         // create the list element
         var list = document.createElement('ul');
         list.setAttribute('role', 'group')
@@ -15,7 +15,10 @@ export default {
             var li = document.createElement('li');
 
             li.setAttribute('role', 'treeitem')
-            li.setAttribute('aria-expanded', 'false')
+
+            let expanded = !vendor;
+
+            li.setAttribute('aria-expanded', expanded)
             li.setAttribute('aria-selected', 'false')
 
             let text = document.createElement('span')
@@ -24,13 +27,14 @@ export default {
 
             if (key === 'vendor') {
                 li.classList.add('vendor')
+                vendor = true
             }
 
             // check if the item is an object
             if (typeof item === 'object') {
 
                 // if it is, call the function recursively to create a nested list
-                li.appendChild(this.createList(item));
+                li.appendChild(this.createList(item, vendor));
             } else {
 
                 let matches = key.match(/#(\d+)/);

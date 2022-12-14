@@ -6,6 +6,10 @@ import table from "./src/table"
 
 let stacks;
 
+// Error Log
+const logEl = document.getElementById('log-error')
+const errorEl = document.getElementById('error-view')
+
 // Stack Detail
 const folderEl = document.getElementById('tree-container')
 const indexEl = document.getElementById('stack-index')
@@ -22,15 +26,29 @@ const tableTab = document.getElementById('table-tab')
 document.addEventListener('submit', function (event) {
     event.preventDefault();
 
+    stacks = null
     let data = Object.fromEntries(new FormData(event.target));
-
-    let rootPathRegex = new RegExp(data.root_path + "?", "g");
 
     let stackArray = data.stacktrace
         .split(/\r?\n/)
-        .map(el => el.trim())
-        .map(el => el.replace(rootPathRegex, ""));
+        .map(stack => stack.trim())
 
+    let errorLog = stackArray.filter(stack => !stack.startsWith("#"))
+
+    // Only Take lines that start with #
+     stackArray =  stackArray.filter(stack => stack.startsWith("#"))
+
+    if (errorLog.length && errorLog[0] !== '') {
+        errorLog.push('<br><strong>Thrown from: ' + stackArray[0] + '</strong>')
+        logEl.innerHTML = errorLog.toString()
+        errorEl.classList.add('is-visible')
+    }
+
+    // Remove root folder
+    if(data.root_path !== "") {
+        let rootPathRegex = new RegExp(data.root_path.trim() + "?", "g");
+        stackArray = stackArray.map(el => el.replace(rootPathRegex, ""));
+    }
 
     stacks = stackArray
         .filter(el => el !== "")
@@ -40,6 +58,9 @@ document.addEventListener('submit', function (event) {
             let matches = items[1].match(/\((\d+)\):/)
             let path = items[1].replace(matches[0], '')
 
+            if (!path.startsWith("/")) {
+                path =  "/" + path
+            }
 
             return {
                 index: items[0],
@@ -97,11 +118,15 @@ function showTable() {
 
     tableContainer.classList.add('is-visible')
     folderEl.classList.remove('is-visible')
+    tableTab.classList.add('is-active')
+    treeTab.classList.remove('is-active')
 }
 
 function showTree() {
     tableContainer.classList.remove('is-visible')
     folderEl.classList.add('is-visible')
+    treeTab.classList.add('is-active')
+    tableTab.classList.remove('is-active')
 }
 
 
@@ -114,15 +139,10 @@ function addClickEventToFiles() {
             let id = (e.target.id).replace('stack-', '#')
             const stack = stacks.find(obj => obj['index'] === id);
 
-
-            console.log(stack)
-
             indexEl.innerHTML = stack.index
             pathEl.innerHTML = stack.path
             lineEl.innerHTML = stack.line
             methodEl.innerHTML = stack.method
-
-            file.setAttribute('style', 'background-color: yellow;');
         })
     })
 }

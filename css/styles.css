@@ -11,7 +11,7 @@
 }
 
 .important {
-    background-color: #065F46;
+    background-color: #065F46 !important;
     color: white;
 }
 
@@ -21,6 +21,10 @@
 
 .toggle-content.is-visible {
     display: block !important;
+}
+
+#textarea {
+    margin-bottom: 10px;
 }
 
 #stack-index {

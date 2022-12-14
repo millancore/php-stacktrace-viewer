@@ -13,7 +13,7 @@ export default  {
                 let td = document.createElement('td')
                 let value = stack[field]
 
-                if (field === 'path' && !value.includes('/vendor')) {
+                if (field === 'path' && !value.includes('vendor')) {
                     important = true
                 }
 

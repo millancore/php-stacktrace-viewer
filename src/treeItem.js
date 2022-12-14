@@ -202,6 +202,11 @@ Treeitem.prototype.handleKeydown = function (event) {
 };
 
 Treeitem.prototype.handleClick = function (event) {
+
+  if (event.target.classList.contains('file')) {
+    return
+  }
+
   if (this.isExpandable) {
     if (this.isExpanded()) {
       this.tree.collapseTreeitem(this);

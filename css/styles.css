@@ -1,0 +1,52 @@
+.vendor {
+    color: #64748B;
+}
+
+.stack-info {
+    margin-top: 10px;
+}
+
+.subtitle {
+    font-weight: bold;
+}
+
+.important {
+    background-color: #065F46;
+    color: white;
+}
+
+.toggle-content {
+    display: none !important;
+}
+
+.toggle-content.is-visible {
+    display: block !important;
+}
+
+#stack-index {
+    margin-bottom: 7px;
+}
+
+#stack-path {
+    background-color: #3F3F46;
+    color: white;
+    border-radius: 3px;
+    padding: 3px 10px;
+}
+#folder-tree {
+    display: flex;
+    justify-content: space-around;
+}
+
+#stack-detail {
+    padding-left: 10px;
+    border-left: 1px solid #3F3F46;
+}
+
+#table {
+    overflow-y: auto;
+}
+
+#stack-table > tbody > tr > td{
+   font-size: 10pt;
+}

@@ -28,14 +28,19 @@
 //   }
 // });
 
-function initializeTree() {
-  var trees = document.querySelectorAll('[role="tree"]');
+import Treeitem  from "./treeItem";
 
-  for (var i = 0; i < trees.length; i++) {
-    var t = new Tree(trees[i]);
-    t.init();
-  }
-}
+export default {
+  
+  initializeTree: function() {
+      var trees = document.querySelectorAll('[role="tree"]');
+
+      for (var i = 0; i < trees.length; i++) {
+        var t = new Tree(trees[i]);
+        t.init();
+      }
+    }
+ }
 
 /*
  *   @constructor

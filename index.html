@@ -9,20 +9,52 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css">
     
-  <script type="module" crossorigin src="/php-stacktrace-viewer/assets/index-89b07877.js"></script>
-  <link rel="stylesheet" href="/php-stacktrace-viewer/assets/index-4e1afe2f.css">
+  <script type="module" crossorigin src="/php-stacktrace-viewer/assets/index-f9bb3982.js"></script>
+  <link rel="stylesheet" href="/php-stacktrace-viewer/assets/index-fb98e5c6.css">
 </head>
 
 <body>
-<form id="stack">
-    <label class="label" for="">
+
+<div class="field has-addons">
+    <p class="control">
+        <a class="button is-small" href="https://github.com/millancore/php-stacktrace-viewer">
+            <span class="icon is-small">
+                <i class="fab fa-github" aria-hidden="true"></i>
+            </span>
+        </a>
+    </p>
+    <p class="control">
+        <a class="button is-small" href="https://github.com/millancore/php-stacktrace-viewer/issues" target="_blank">
+            <span> Report issue </span>
+            <span class="icon is-small">
+                <i class="fas fa-bug" aria-hidden="true"></i>
+            </span>
+        </a>
+    </p>
+    <p class="control">
+        <a class="button is-small is-info" href="https://twitter.com/millancore" target="_blank">
+             <span class="icon is-small">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+            </span>
+            <span>Juan Millan</span>
+        </a>
+    </p>
+</div>
+
+<form id="stack-form">
+    <label class="label" for="root-path">
         Root Path:
-        <input class="input" type="text" name="root_path" id="" placeholder="/var/www/html">
+        <input id="root-path" class="input" type="text" name="root_path" placeholder="/var/www/html">
     </label>
     <textarea id="textarea" class="textarea is-fullwidth" name="stacktrace" cols="30" rows="10"></textarea>
 
-    <button id="process" class="button is-link" type="submit">Process</button>
-    <button class="button" type="button">Clear</button>
+    <div id="options">
+        <div>
+            <button id="process" class="button is-link" type="submit">Process</button>
+            <button id="clear" class="button" type="button">Clear</button>
+        </div>
+        <button id="load-example" class="button is-danger" type="button">Load Example Stack Trace</button>
+    </div>
 </form>
 
 
@@ -51,37 +83,42 @@
 </div>
 
 
-
 <div id="tree-container" class="toggle-content">
-<div id="folder-tree">
-    <ul id="tree" role="tree" aria-labelledby="tree_label">
-        <li id="first-element" role="treeitem" aria-expanded="true" aria-selected="false">
-            <!-- Folder Tree  -->
-        </li>
-    </ul>
-    <div id="stack-detail">
-        <div class="stack-info">
-            <span>Execution index: </span>
-            <h1 class="title" id="stack-index"></h1>
-        </div>
-        <div class="stack-info">
-            <span>Path:</span>
-            <p class="path" id="stack-path"></p>
-        </div>
-        <div class="stack-info">
-            <span>Line:</span>
-            <h2 class="subtitle" id="stack-line"></h2>
-        </div>
-        <div class="stack-info">
-            <span>Method:</span>
-            <h2 class="subtitle" id="stack-method"></h2>
+    <div id="folder-tree">
+        <ul id="tree" role="tree" aria-labelledby="tree_label">
+            <li id="first-element" role="treeitem" aria-expanded="true" aria-selected="false">
+                <!-- Folder Tree  -->
+            </li>
+        </ul>
+        <div>
+            <div id="stack-detail">
+                <div class="stack-info">
+                    <span>Execution index: </span>
+                    <h1 class="title" id="stack-index"></h1>
+                </div>
+                <div class="stack-info">
+                    <span>Path:</span>
+                    <p class="path" id="stack-path"></p>
+                </div>
+                <div class="stack-info">
+                    <span>Line:</span>
+                    <h2 class="subtitle" id="stack-line"></h2>
+                </div>
+                <div class="stack-info">
+                    <span>Method:</span>
+                    <h2 class="subtitle" id="stack-method"></h2>
+                </div>
+            </div>
+            <h2 class="subtitle">Previous</h2>
+            <ul id="previous">
+            <!--    Previous stack lines  -->
+            </ul>
         </div>
     </div>
 </div>
-</div>
 <div id="table" class="toggle-content">
     <table id="stack-table"
-            class="table is-bordered is-striped is-narrow">
+           class="table is-bordered is-striped is-narrow">
         <thead>
         <tr>
             <th>Order</th>

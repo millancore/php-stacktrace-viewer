@@ -131,7 +131,6 @@ function addPreviousStackLines(fromId, count = 3) {
 
     for (i; i < count; i++) {
        let stackLine = findStackLine('#'+ i)
-        console.log(stackLine)
         if (stackLine instanceof parser.Stack) {
             previousEl.appendChild(createSimpleStackHTML(stackLine))
         }

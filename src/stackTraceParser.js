@@ -40,14 +40,19 @@ function stackLinesToObjects(stackArray) {
             let items = stackLine.split(" ")
 
             let matches = items[1].match(/\((\d+)\):/)
-            let path = items[1].replace(matches[0], '')
 
-            path = !path.startsWith("/")
-                ? "/" + path
-                : path
+            let path = ''
+            let line = ''
+            if (matches !== null) {
+                path = items[1].replace(matches[0], '')
+                line = matches[1]
 
-            return new Stack(items[0], path, matches[1], items[2])
+                path = !path.startsWith("/")
+                    ? "/" + path
+                    : path
+            }
 
+            return new Stack(items[0], path, line, items[2])
         });
 }
 

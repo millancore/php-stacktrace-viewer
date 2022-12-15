@@ -170,16 +170,7 @@ function showLineDetail(stackLine) {
 }
 
 function clear() {
-    stacks = null
-    listContainer.innerHTML = ''
-    let tbody = tableEl.getElementsByTagName('tbody')[0]
-    tbody.innerHTML = ''
-    showLineDetail(new parser.Stack('', '', '', ''))
-    previousEl.innerHTML = ''
-    rootPath.value = ''
-    textarea.value = ''
-    logEl.innerHTML = ''
-    errorEl.classList.remove('is-visible')
+    location.reload()
 }
 
 function loadStackTraceExample() {

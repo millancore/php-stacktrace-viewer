@@ -23,6 +23,26 @@
     display: block !important;
 }
 
+.previous-stack {
+    background-color: #4B5563;
+    color: white;
+    margin-top: 2px;
+    padding: 3px 7px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+#options {
+    display: flex;
+    justify-content: space-between;
+}
+
+#error-view {
+    margin-top: 10px;
+}
+
 #textarea {
     margin-bottom: 10px;
 }
@@ -43,8 +63,10 @@
 }
 
 #stack-detail {
-    padding-left: 10px;
-    border-left: 1px solid #3F3F46;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #3F3F46;
+    margin-bottom: 5px;
 }
 
 #table {

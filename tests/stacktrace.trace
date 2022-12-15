@@ -1,3 +1,4 @@
+  Using $this when not in object context
   #0 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(109): require()
   #1 /var/www/html/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(110): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
   #2 /var/www/html/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire()

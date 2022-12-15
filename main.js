@@ -71,6 +71,12 @@ function showTable() {
     let tbody = tableEl.getElementsByTagName('tbody')[0]
     table.createTable(stacks, tbody);
 
+    new simpleDatatables.DataTable("#stack-table", {
+        searchable: true,
+        sortable: false,
+        paging: false
+    })
+
     tableContainer.classList.add('is-visible')
     folderEl.classList.remove('is-visible')
     tableTab.classList.add('is-active')
